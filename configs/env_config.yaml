@@ -1,0 +1,87 @@
+# Environment Configuration
+
+# Simulation Environment
+env:
+  name: "PickCube-v0"  # ManiSkill2 environment name
+  # Options: "PickCube-v0", "PushCube-v0", "StackCube-v0", etc.
+  
+  obs_mode: "rgbd"  # "rgbd", "pointcloud", or "state"
+  control_mode: "pd_ee_delta_pose"  # End-effector delta pose control
+  
+  # Rendering
+  render_mode: "rgb_array"  # "human" or "rgb_array"
+  camera_names: ["base_camera"]  # List of cameras to use
+  image_size: [224, 224]  # [width, height]
+  
+  # Episode settings
+  max_episode_steps: 200
+  
+  # Randomization (for data collection)
+  randomize_object_position: true
+  randomize_object_color: true
+  randomize_lighting: false
+  
+  # Reward shaping (if using RL)
+  dense_reward: true
+  success_threshold: 0.05  # Distance threshold for success (meters)
+
+# Robot Configuration
+robot:
+  name: "panda"  # "panda", "fetch", or "xarm"
+  dof: 7  # Degrees of freedom (excluding gripper)
+  
+  # Action space
+  action_dim: 7  # [x, y, z, roll, pitch, yaw, gripper]
+  action_scale: 0.1  # Scale for delta actions
+  
+  # Control frequency
+  control_freq: 20  # Hz
+  
+  # Safety limits
+  position_limits:
+    x: [-0.5, 0.5]
+    y: [-0.5, 0.5]
+    z: [0.0, 0.8]
+  
+  rotation_limits:
+    roll: [-3.14, 3.14]
+    pitch: [-3.14, 3.14]
+    yaw: [-3.14, 3.14]
+
+# Task-specific settings
+tasks:
+  PickCube:
+    instruction_templates:
+      - "Pick up the {color} cube"
+      - "Grasp the {color} block"
+      - "Lift the {color} object"
+    colors: ["red", "blue", "green", "yellow"]
+    object_scale: [0.02, 0.02, 0.02]  # meters
+  
+  PushCube:
+    instruction_templates:
+      - "Push the {color} cube to the {direction}"
+      - "Move the {color} block {direction}"
+    colors: ["red", "blue", "green"]
+    directions: ["left", "right", "forward", "backward"]
+  
+  StackCube:
+    instruction_templates:
+      - "Stack the {color1} cube on the {color2} cube"
+      - "Put the {color1} block on top of the {color2} one"
+    colors: ["red", "blue", "green"]
+
+# Data Collection
+data_collection:
+  num_episodes: 100  # Number of episodes to collect per task
+  success_only: true  # Only save successful episodes
+  
+  # Scripted expert
+  use_scripted_expert: true
+  expert_noise: 0.01  # Add small noise to expert actions
+  
+  # Output
+  output_dir: "data"
+  output_format: "zarr"  # "zarr" or "h5"
+  save_video: true
+  video_fps: 20

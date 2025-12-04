@@ -1,0 +1,89 @@
+# Training Configuration
+
+# Model Architecture
+model:
+  action_dim: 7  # [x, y, z, roll, pitch, yaw, gripper]
+  action_horizon: 16  # Predict 16 steps into the future
+  
+  # Vision Encoder
+  vision_encoder: "resnet18"  # or "vit"
+  vision_feature_dim: 512
+  freeze_vision_backbone: false
+  use_spatial_softmax: true
+  
+  # Language Encoder
+  language_model: "ViT-B/32"  # CLIP model variant
+  language_feature_dim: 512
+  freeze_language: true
+  
+  # Conditioning
+  conditioning_type: "cross_attention"  # "film" or "cross_attention"
+  
+  # U-Net
+  unet_base_channels: 256
+  unet_channel_mult: [1, 2, 4]
+  unet_num_res_blocks: 2
+  
+  # Diffusion
+  num_diffusion_steps: 100
+  beta_schedule: "squaredcos_cap_v2"
+  prediction_type: "epsilon"  # "epsilon" or "sample"
+  
+  dropout: 0.1
+
+# Dataset
+dataset:
+  data_path: "data/demonstrations.zarr"
+  horizon: 16
+  obs_horizon: 1
+  action_horizon: 16
+  image_size: [224, 224]
+  normalize_actions: true
+  augment: true
+  file_format: "zarr"
+
+# Training
+training:
+  batch_size: 32
+  num_epochs: 100
+  learning_rate: 1.0e-4
+  weight_decay: 1.0e-6
+  grad_clip: 1.0
+  
+  # Learning rate schedule
+  lr_scheduler: "cosine"  # "cosine", "step", or "none"
+  lr_warmup_steps: 500
+  
+  # Optimizer
+  optimizer: "adamw"  # "adam" or "adamw"
+  betas: [0.9, 0.999]
+  
+  # Data loading
+  num_workers: 4
+  pin_memory: true
+  
+  # Checkpointing
+  save_every: 10  # Save checkpoint every N epochs
+  checkpoint_dir: "checkpoints"
+  
+  # Logging
+  log_every: 100  # Log every N steps
+  use_wandb: true
+  wandb_project: "lcdp-sim"
+  wandb_entity: null  # Your wandb username
+  
+  # Validation
+  val_every: 5  # Validate every N epochs
+  val_split: 0.1  # Fraction of data for validation
+
+# Inference
+inference:
+  num_inference_steps: 10  # DDIM steps (much faster than 100 DDPM steps)
+  batch_size: 1
+  
+  # Receding horizon control
+  execute_horizon: 8  # Execute first 8 steps out of 16 predicted
+
+# Device
+device: "cuda"  # "cuda" or "cpu"
+seed: 42

@@ -1,0 +1,80 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Project specific
+data/
+checkpoints/
+logs/
+wandb/
+outputs/
+*.zarr/
+*.h5
+*.hdf5
+
+# Temporary files
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+
+# Model weights
+*.pth
+*.pt
+*.ckpt
+*.safetensors
+
+# Videos and images (large files)
+*.mp4
+*.avi
+*.gif
+assets/demo_videos/*
+!assets/demo_videos/.gitkeep
+
+# PyTorch profiler
+*.prof
