@@ -210,7 +210,14 @@ class Evaluator:
             # Try to import ManiSkill
             try:
                 import mani_skill2.envs
-                env = gym.make(env_name, render_mode="rgb_array")
+                # Determine render mode
+                if render and not save_videos:
+                    render_mode = "human"
+                    print("Using human render mode for interactive visualization")
+                else:
+                    render_mode = "rgb_array"
+                    
+                env = gym.make(env_name, render_mode=render_mode)
             except ImportError:
                 print("ManiSkill2 not installed, using placeholder environment")
                 # For demo purposes, you'd implement a simple env wrapper
