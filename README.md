@@ -182,20 +182,20 @@ python scripts/eval.py \
 
 ### 训练性能
 
-| 指标 | 数值 | 说明 |
-|------|------|------|
-| **模型参数量** | 232.34M | ResNet-18 + CLIP + U-Net |
-| **训练速度** | 2.18 it/s | Batch size=4, RTX 系列 GPU |
-| **训练损失** | 1.0016 | 10 个批次后收敛 |
-| **数据集规模** | 985 样本 | 10 条轨迹，每条 100 步 |
-| **推理时间** | ~50ms | DDIM 10 步采样 |
+| 指标           | 数值      | 说明                       |
+| -------------- | --------- | -------------------------- |
+| **模型参数量** | 232.34M   | ResNet-18 + CLIP + U-Net   |
+| **训练速度**   | 2.18 it/s | Batch size=4, RTX 系列 GPU |
+| **训练损失**   | 1.0016    | 10 个批次后收敛            |
+| **数据集规模** | 985 样本  | 10 条轨迹，每条 100 步     |
+| **推理时间**   | ~50ms     | DDIM 10 步采样             |
 
 ### 架构对比
 
-| 配置 | 参数量 | 训练速度 | 说明 |
-|------|--------|----------|------|
-| FiLM 调节 | 232M | 2.18 it/s | ✅ 已验证 |
-| Cross-Attention | 235M | 2.05 it/s | 复杂指令性能更好 |
+| 配置            | 参数量 | 训练速度  | 说明             |
+| --------------- | ------ | --------- | ---------------- |
+| FiLM 调节       | 232M   | 2.18 it/s | ✅ 已验证         |
+| Cross-Attention | 235M   | 2.05 it/s | 复杂指令性能更好 |
 
 ### 关键设计选择
 
@@ -308,23 +308,6 @@ while not done:
 - **邮箱**: hy20051123@gmail.com
 - **个人主页**: [16yunh.github.io](https://16yunh.github.io/)
 
-## ⭐ 如何引用
-
-如果本项目对您的研究有帮助，欢迎引用：
-
-```bibtex
-@misc{lcdp-sim-2024,
-  author = {Hong, Yun},
-  title = {LCDP-Sim: Language-Conditioned Diffusion Policy for Robot Manipulation},
-  year = {2024},
-  publisher = {GitHub},
-  url = {https://github.com/16yunH/LCDP-Sim}
-}
-```
-
 ---
 
-<p align="center">
-  <b>如果这个项目对你有帮助，欢迎 ⭐ Star！</b><br>
-  <sub>Made with ❤️ for the Robotics Community</sub>
-</p>
+*如果这个项目对你有帮助，欢迎 ⭐ Star！*
